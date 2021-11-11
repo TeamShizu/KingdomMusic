@@ -3,7 +3,7 @@ from pyrogram import Client as Bot
 
 from callsmusic import run
 from config import API_HASH, API_ID, BG_IMAGE, BOT_TOKEN
-from handlers import __version__
+from KingdomMusic import __version__
 
 response = requests.get(BG_IMAGE)
 with open("./etc/foreground.png", "wb") as file:
@@ -15,7 +15,7 @@ bot = Bot(
     API_ID,
     API_HASH,
     bot_token=BOT_TOKEN,
-    plugins=dict(root="handlers"),
+    plugins=dict(root="KingdomMusic"),
 )
 
 print(f"[INFO]: KINGDOM MUSIC v{__version__} STARTED !")
