@@ -1,7 +1,6 @@
 import requests
 from pyrogram import Client as Bot
-import aiohttp
-from aiohttp import ClientSession
+
 from callsmusic import run
 from config import API_HASH, API_ID, BG_IMAGE, BOT_TOKEN
 from KingdomMusic import __version__
@@ -10,8 +9,7 @@ response = requests.get(BG_IMAGE)
 with open("./etc/foreground.png", "wb") as file:
     file.write(response.content)
 
-print("[INFO]: INITIALZING AIOHTTP SESSION")
-aiohttpsession = ClientSession()
+
 
 bot = Bot(
     ":memory:",
