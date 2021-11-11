@@ -1,3 +1,4 @@
+import json
 import os
 from os import path
 from typing import Callable
@@ -29,17 +30,22 @@ from helpers.channelmusic import get_chat_id
 from helpers.chattitle import CHAT_TITLE
 from helpers.decorators import authorized_users_only
 from helpers.filters import command, other_filters
-from helpers.gets import get_file_name
+from helpers.gets import get_url, get_file_name
 from PIL import Image, ImageDraw, ImageFont
 from pyrogram import Client, filters
 from pyrogram.errors import UserAlreadyParticipant
+from pytgcalls import StreamType
+from pytgcalls.types.input_stream import InputAudioStream
+from pytgcalls.types.input_stream import InputStream
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtube_search import YoutubeSearch
 
-aiohttpsession = aiohttp.ClientSession()
+# plus
+
 chat_id = None
-useer = "NaN"
 DISABLED_GROUPS = []
+useer = "NaN"
+
 
 
 def cb_admin_check(func: Callable) -> Callable:
@@ -329,29 +335,32 @@ async def m_cb(b, cb):
 
     cb.message.reply_markup.inline_keyboard[1][0].callback_data
     if type_ == "pause":
-        if (chet_id not in callsmusic.pytgcalls.active_calls) or (
-            callsmusic.pytgcalls.active_calls[chet_id] == "paused"
-        ):
+        ACTV_CALLS = []
+        for x in callsmusic.pytgcalls.active_calls:
+            ACTV_CALLS.append(int(x.chet_id))
+        if int(chet_id) not in ACTV_CALLS:
             await cb.answer(
                 "userbot is not connected to voice chat.", show_alert=True
             )
         else:
-            callsmusic.pytgcalls.pause_stream(chet_id)
-
+            await callsmusic.pytgcalls.pause_stream(chet_id)
+            
             await cb.answer("music paused")
             await cb.message.edit(
                 updated_stats(m_chat, qeue), reply_markup=r_ply("play")
             )
 
     elif type_ == "play":
-        if (chet_id not in callsmusic.pytgcalls.active_calls) or (
-            callsmusic.pytgcalls.active_calls[chet_id] == "playing"
-        ):
+        ACTV_CALLS = []
+        for x in callsmusic.pytgcalls.active_calls:
+            ACTV_CALLS.append(int(x.chet_id))
+        if int(chet_id) not in ACTV_CALLS:
             await cb.answer(
                 "userbot is not connected to voice chat.", show_alert=True
             )
         else:
-            callsmusic.pytgcalls.resume_stream(chet_id)
+            await callsmusic.pytgcalls.resume_stream(chet_id)
+            
             await cb.answer("music resumed")
             await cb.message.edit(
                 updated_stats(m_chat, qeue), reply_markup=r_ply("pause")
@@ -382,27 +391,28 @@ async def m_cb(b, cb):
 
     elif type_ == "resume":
         psn = "▶ music playback has resumed"
-        if (chet_id not in callsmusic.pytgcalls.active_calls) or (
-            callsmusic.pytgcalls.active_calls[chet_id] == "playing"
-        ):
+        ACTV_CALLS = []
+        for x in callsmusic.pytgcalls.active_calls:
+            ACTV_CALLS.append(int(x.chet_id))
+        if int(chet_id) not in ACTV_CALLS:
             await cb.answer(
                 "voice chat is not connected or already playing", show_alert=True
             )
         else:
-            callsmusic.pytgcalls.resume_stream(chet_id)
+            await callsmusic.pytgcalls.resume_stream(chet_id)
             await cb.message.edit(psn, reply_markup=keyboard)
 
     elif type_ == "puse":
         spn = "⏸ music playback has paused"
-        if (chet_id not in callsmusic.pytgcalls.active_calls) or (
-            callsmusic.pytgcalls.active_calls[chet_id] == "paused"
-        ):
+        ACTV_CALLS = []
+        for x in callsmusic.pytgcalls.active_calls:
+            ACTV_CALLS.append(int(x.chet_id))
+        if int(chet_id) not in ACTV_CALLS:
             await cb.answer(
                 "voice chat is not connected or already paused", show_alert=True
             )
         else:
-            callsmusic.pytgcalls.pause_stream(chet_id)
-
+            await callsmusic.pytgcalls.pause_stream(chet_id)
             await cb.message.edit(spn, reply_markup=keyboard)
 
     elif type_ == "cls":
@@ -431,16 +441,19 @@ async def m_cb(b, cb):
         mmk = "⏭ you skipped to the next music"
         if qeue:
             qeue.pop(0)
-        if chet_id not in callsmusic.pytgcalls.active_calls:
+        ACTV_CALLS = []
+        for x in callsmusic.pytgcalls.active_calls:
+            ACTV_CALLS.append(int(x.chet_id))
+        if int(chet_id) not in ACTV_CALLS:
             await cb.answer(
                 "assistant is not connected to voice chat !", show_alert=True
             )
         else:
             callsmusic.queues.task_done(chet_id)
-
+            
             if callsmusic.queues.is_empty(chet_id):
-                callsmusic.pytgcalls.leave_group_call(chet_id)
-
+                await callsmusic.pytgcalls.leave_group_call(chet_id)
+                
                 await cb.message.edit(
                     nmq,
                     reply_markup=InlineKeyboardMarkup(
@@ -448,26 +461,33 @@ async def m_cb(b, cb):
                     ),
                 )
             else:
-                callsmusic.pytgcalls.change_stream(
-                    chet_id, callsmusic.queues.get(chet_id)["file"]
+                await callsmusic.pytgcalls.change_stream(
+                    chet_id, 
+                    InputStream(
+                        InputAudioStream(
+                            callsmusic.queues.get(chet_id)["file"],
+                        ),
+                    ),
                 )
                 await cb.message.edit(mmk, reply_markup=keyboard)
 
     elif type_ == "leave":
         hps = "✅ **the music playback has ended**"
-        if chet_id in callsmusic.pytgcalls.active_calls:
+        ACTV_CALLS = []
+        for x in callsmusic.pytgcalls.active_calls:
+            ACTV_CALLS.append(int(x.chet_id))
+        if int(chet_id) not in ACTV_CALLS:
             try:
                 callsmusic.queues.clear(chet_id)
             except QueueEmpty:
                 pass
-
-            callsmusic.pytgcalls.leave_group_call(chet_id)
+            await callsmusic.pytgcalls.leave_group_call(chet_id)
             await cb.message.edit(
-                    hps,
-                    reply_markup=InlineKeyboardMarkup(
-                        [[InlineKeyboardButton("🗑 Close", callback_data="close")]]
-                    ),
-                )
+                hps,
+                reply_markup=InlineKeyboardMarkup(
+                    [[InlineKeyboardButton("🗑 Close", callback_data="close")]]
+                ),
+            )
         else:
             await cb.answer(
                 "userbot is not connected to voice chat.", show_alert=True
@@ -599,9 +619,9 @@ async def play(_, message: Message):
     elif urls:
         query = toxt
         await lel.edit("🔎 **searching...**")
-        ydl_opts = {"format": "bestaudio[ext=m4a]"}
+        ydl_opts = {"format": "bestaudio/best"}
         try:
-            results = YoutubeSearch(query, max_results=1).to_dict()
+            results = YoutubeSearch(query, max_results=1).to_json()
             url = f"https://youtube.com{results[0]['url_suffix']}"
             title = results[0]["title"][:70]
             thumbnail = results[0]["thumbnails"][0]
@@ -642,10 +662,10 @@ async def play(_, message: Message):
         for i in message.command[1:]:
             query += " " + str(i)
         print(query)
-        ydl_opts = {"format": "bestaudio[ext=m4a]"}
+        ydl_opts = {"format": "bestaudio/best"}
 
         try:
-            results = YoutubeSearch(query, max_results=5).to_dict()
+            results = YoutubeSearch(query, max_results=5).to_json()
         except:
             await lel.edit(
                 "😕 **song name not detected**\n\n» **please provide the name of the song you want to play**"
@@ -732,9 +752,11 @@ async def play(_, message: Message):
             message.from_user.first_name
             await generate_cover(title, thumbnail, ctitle)
             file_path = await converter.convert(youtube.download(url))
-    chat_id = get_chat_id(message.chat)
-    if chat_id in callsmusic.pytgcalls.active_calls:
-        position = await queues.put(chat_id, file=file_path)
+            ACTV_CALLS = []
+    for x in callsmusic.pytgcalls.active_calls:
+        ACTV_CALLS.append(int(x.chat_id))
+    if chat_id in ACTV_CALLS:
+        position = await queues.put(chat_id, file_path)
         qeue = que.get(chat_id)
         s_name = title
         r_by = message.from_user
@@ -757,8 +779,16 @@ async def play(_, message: Message):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         try:
-            callsmusic.pytgcalls.join_group_call(chat_id, file_path)
-        except:
+            await callsmusic.pytgcalls.join_group_call(
+                chat_id, 
+                InputStream(
+                    InputAudioStream(
+                        file_path,
+                    ),
+                ),
+                stream_type=StreamType().local_stream,
+            )
+        except Exception as e:
             await lel.edit(
                 "😕 **voice chat not found**\n\n» please turn on the voice chat first"
             )
@@ -811,7 +841,7 @@ async def lol_cb(b, cb):
         cb.message.reply_to_message.from_user.first_name
     except:
         cb.message.from_user.first_name
-    results = YoutubeSearch(query, max_results=5).to_dict()
+    results = YoutubeSearch(query, max_results=5).to_json()
     resultss = results[x]["url_suffix"]
     title = results[x]["title"][:70]
     thumbnail = results[x]["thumbnails"][0]
@@ -849,7 +879,10 @@ async def lol_cb(b, cb):
     )
     await generate_cover(title, thumbnail, ctitle)
     file_path = await converter.convert(youtube.download(url))
-    if chat_id in callsmusic.pytgcalls.active_calls:
+    ACTV_CALLS = []
+    for x in callsmusic.pytgcalls.active_calls:
+        ACTV_CALLS.append(int(x.chat_id))
+    if chat_id in ACTV_CALLS:
         position = await queues.put(chat_id, file=file_path)
         qeue = que.get(chat_id)
         s_name = title
@@ -857,16 +890,16 @@ async def lol_cb(b, cb):
             r_by = cb.message.reply_to_message.from_user
         except:
             r_by = cb.message.from_user
-        loc = file_path
-        appendable = [s_name, r_by, loc]
-        qeue.append(appendable)
-        await cb.message.delete()
-        await b.send_photo(
-            chat_id,
-            photo="final.png",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {cb.from_user.mention}",
-            reply_markup=keyboard,
-        )
+            loc = file_path
+            appendable = [s_name, r_by, loc]
+            qeue.append(appendable)
+            await cb.message.delete()
+            await b.send_photo(
+                chat_id,
+                photo="final.png",
+                caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {cb.from_user.mention}",
+                reply_markup=keyboard,
+            )
     else:
         que[chat_id] = []
         qeue = que.get(chat_id)
@@ -875,20 +908,28 @@ async def lol_cb(b, cb):
             r_by = cb.message.reply_to_message.from_user
         except:
             r_by = cb.message.from_user
-        loc = file_path
-        appendable = [s_name, r_by, loc]
-        qeue.append(appendable)
-        callsmusic.pytgcalls.join_group_call(chat_id, file_path)
-        await cb.message.delete()
-        await b.send_photo(
-            chat_id,
-            photo="final.png",
-            caption=f"🏷 **Name:** [{title[:70]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
-            + f"🎧 **Request by:** {cb.from_user.mention}",
-            reply_markup=keyboard,
-        )
-    if path.exists("final.png"):
-        os.remove("final.png")
+            loc = file_path
+            appendable = [s_name, r_by, loc]
+            qeue.append(appendable)
+            await callsmusic.pytgcalls.join_group_call(
+                chat_id, 
+                InputStream(
+                    InputAudioStream(
+                        file_path,
+                    ),
+                ),
+                stream_type=StreamType().local_stream,
+            )
+            await cb.message.delete()
+            await b.send_photo(
+                chat_id,
+                photo="final.png",
+                caption=f"🏷 **Name:** [{title[:70]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+                + f"🎧 **Request by:** {cb.from_user.mention}",
+                reply_markup=keyboard,
+            )
+            if path.exists("final.png"):
+                os.remove("final.png")
 
 
 @Client.on_message(command(["ytp", f"ytp@{BOT_USERNAME}"]) & other_filters)
@@ -963,9 +1004,9 @@ async def ytplay(_, message: Message):
         query += " " + str(i)
     print(query)
     await lel.edit("🔄 **connecting to vc...**")
-    ydl_opts = {"format": "bestaudio[ext=m4a]"}
+    ydl_opts = {"format": "bestaudio/best"}
     try:
-        results = YoutubeSearch(query, max_results=1).to_dict()
+        results = YoutubeSearch(query, max_results=1).to_json()
         url = f"https://youtube.com{results[0]['url_suffix']}"
         title = results[0]["title"][:70]
         thumbnail = results[0]["thumbnails"][0]
@@ -1009,8 +1050,10 @@ async def ytplay(_, message: Message):
     )
     await generate_cover(title, thumbnail, ctitle)
     file_path = await converter.convert(youtube.download(url))
-    chat_id = get_chat_id(message.chat)
-    if chat_id in callsmusic.pytgcalls.active_calls:
+    ACTV_CALLS = []
+    for x in callsmusic.pytgcalls.active_calls:
+        ACTV_CALLS.append(int(x.chat_id))
+    if int(message.chat.id) in ACTV_CALLS:
         position = await queues.put(chat_id, file=file_path)
         qeue = que.get(chat_id)
         s_name = title
@@ -1034,7 +1077,15 @@ async def ytplay(_, message: Message):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         try:
-            callsmusic.pytgcalls.join_group_call(chat_id, file_path)
+            await callsmusic.pytgcalls.join_group_call(
+                chat_id, 
+                InputStream(
+                    InputAudioStream(
+                        file_path,
+                    ),
+                ),
+                stream_type=StreamType().local_stream,
+            )
         except:
             await lel.edit(
                 "😕 **voice chat not found**\n\n» please turn on the voice chat first"
