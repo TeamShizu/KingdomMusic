@@ -41,6 +41,7 @@ from youtube_search import YoutubeSearch
 
 chat_id = None
 DISABLED_GROUPS = []
+ACTV_CALLS = []
 useer = "NaN"
 
 
