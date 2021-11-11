@@ -15,7 +15,7 @@ from callsmusic.queues import queues
 from config import que, DURATION_LIMIT, BOT_USERNAME, UPDATES_CHANNEL as updateschannel
 from converter.converter import convert
 from downloaders import youtube
-from handlers.play import cb_admin_check, generate_cover
+from KingdomMusic.play import cb_admin_check, generate_cover
 from helpers.filters import command, other_filters
 from helpers.admins import get_administrators
 from helpers.decorators import authorized_users_only
