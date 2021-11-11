@@ -19,3 +19,5 @@ motor
 dnspython
 heroku3
 gitpython
+httpx==0.13.3
+pymongo
