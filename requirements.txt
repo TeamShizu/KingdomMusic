@@ -1,8 +1,8 @@
-pyrogram
+git+https://github.com/pyrogram/pyrogram@master
+git+https://github.com/yt-dlp/yt-dlp@master
 tgcrypto
 pytgcalls
 python-dotenv
-yt-dlp
 youtube-search-python==1.4.9
 requests
 aiohttp
