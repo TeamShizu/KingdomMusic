@@ -77,4 +77,4 @@ class Database:
 # Database
 db = Database(DATABASE_URL, BOT_USERNAME)
 mongo_db_lmao = MongoClient(DATABASE_URL)
-dcmdb = mongo_db_lmao.KingdomMusic
+dcmdb = mongo_db_lmao.handlers
