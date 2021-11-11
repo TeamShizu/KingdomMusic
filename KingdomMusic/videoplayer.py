@@ -23,7 +23,7 @@ from pytgcalls.types.input_stream.quality import (
     LowQualityVideo,
     MediumQualityVideo,
 )
-from youtubesearchpython import VideosSearch
+from youtube_search import VideosSearch
 
 
 def ytsearch(query):
