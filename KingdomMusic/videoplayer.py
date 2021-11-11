@@ -6,12 +6,9 @@ import asyncio
 import re
 
 from config import ASSISTANT_NAME, BOT_USERNAME, IMG_1, IMG_2, UPDATES_CHANNEL
-from helpers.filters import command, other_filters
-from helpers.queues import QUEUE, add_to_queue
-from callsmusic.callsmusic import client as user
-from callsmusic.callsmusic import pytgcalls as call_py
-from callsmusic import callsmusic
-
+from driver.filters import command, other_filters
+from driver.queues import QUEUE, add_to_queue
+from driver.veez import call_py, user
 from pyrogram import Client
 from pyrogram.errors import UserAlreadyParticipant, UserNotParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
@@ -23,7 +20,7 @@ from pytgcalls.types.input_stream.quality import (
     LowQualityVideo,
     MediumQualityVideo,
 )
-from youtube_search import VideosSearch
+from youtubesearchpython import VideosSearch
 
 
 def ytsearch(query):
