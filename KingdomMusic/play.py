@@ -1,4 +1,3 @@
-import json
 import os
 from os import path
 from typing import Callable
@@ -621,7 +620,7 @@ async def play(_, message: Message):
         await lel.edit("🔎 **searching...**")
         ydl_opts = {"format": "bestaudio/best"}
         try:
-            results = YoutubeSearch(query, max_results=1).to_json()
+            results = YoutubeSearch(query, max_results=1).to_dict()
             url = f"https://youtube.com{results[0]['url_suffix']}"
             title = results[0]["title"][:70]
             thumbnail = results[0]["thumbnails"][0]
@@ -665,7 +664,7 @@ async def play(_, message: Message):
         ydl_opts = {"format": "bestaudio/best"}
 
         try:
-            results = YoutubeSearch(query, max_results=5).to_json()
+            results = YoutubeSearch(query, max_results=5).to_dict()
         except:
             await lel.edit(
                 "😕 **song name not detected**\n\n» **please provide the name of the song you want to play**"
@@ -841,7 +840,7 @@ async def lol_cb(b, cb):
         cb.message.reply_to_message.from_user.first_name
     except:
         cb.message.from_user.first_name
-    results = YoutubeSearch(query, max_results=5).to_json()
+    results = YoutubeSearch(query, max_results=5).to_dict()
     resultss = results[x]["url_suffix"]
     title = results[x]["title"][:70]
     thumbnail = results[x]["thumbnails"][0]
@@ -1006,7 +1005,7 @@ async def ytplay(_, message: Message):
     await lel.edit("🔄 **connecting to vc...**")
     ydl_opts = {"format": "bestaudio/best"}
     try:
-        results = YoutubeSearch(query, max_results=1).to_json()
+        results = YoutubeSearch(query, max_results=1).to_dict()
         url = f"https://youtube.com{results[0]['url_suffix']}"
         title = results[0]["title"][:70]
         thumbnail = results[0]["thumbnails"][0]
