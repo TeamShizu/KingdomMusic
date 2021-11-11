@@ -3,7 +3,7 @@ from typing import Dict
 
 from pytgcalls import GroupCallFactory
 
-from callsmusic.callsmusic import Client as client
+from callsmusic.callsmusic import client
 from callsmusic.queues import queues
 
 instances: Dict[int, GroupCallFactory] = {}
