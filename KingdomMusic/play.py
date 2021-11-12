@@ -750,8 +750,9 @@ async def play(_, message: Message):
             )
             message.from_user.first_name
             await generate_cover(title, thumbnail, ctitle)
-            file_path = await converter.convert(youtube.download(url))
-            ACTV_CALLS = []
+            
+    file_path = await converter.convert(youtube.download(url))
+    ACTV_CALLS = []
     for x in callsmusic.pytgcalls.active_calls:
         ACTV_CALLS.append(int(x.chat_id))
     if chat_id in ACTV_CALLS:
