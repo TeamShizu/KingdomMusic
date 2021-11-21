@@ -81,7 +81,7 @@ async def start_private(client: Client, message: Message):
                 ],
                 [
                     InlineKeyboardButton(
-                        "🌐 Source Code", url="https://github.com/TeamShizu/KingdomMusic"
+                        "☛ Support us ☚", url="https://t.me/kingdom_family_support"
                     )
                 ],
             ]
