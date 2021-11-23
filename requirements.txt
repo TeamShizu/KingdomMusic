@@ -20,3 +20,4 @@ pymongo
 dnspython
 heroku3
 gitpython
+python-arq
