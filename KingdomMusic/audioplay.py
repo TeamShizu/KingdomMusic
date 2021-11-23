@@ -40,7 +40,10 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtube_search import YoutubeSearch
 
 # plus
-
+ARQ_API_KEY = "JIMDNN-QWRYPB-KIWWET-XJKQMZ-ARQ"
+aiohttpsession = aiohttp.ClientSession()
+chat_id = None
+arq = ARQ("https://thearq.tech", ARQ_API_KEY, aiohttpsession)
 chat_id = None
 DISABLED_GROUPS = []
 useer = "NaN"
