@@ -33,6 +33,9 @@ from callsmusic import callsmusic, queues
 from callsmusic.callsmusic import client as USER
 from converter.converter import convert
 from downloaders import youtube
+from pytgcalls import StreamType
+from pytgcalls.types.input_stream import InputAudioStream
+from pytgcalls.types.input_stream import InputStream
 
 ARQ_API_KEY = "JIMDNN-QWRYPB-KIWWET-XJKQMZ-ARQ"
 aiohttpsession = aiohttp.ClientSession()
@@ -844,7 +847,15 @@ async def lol_cb(b, cb):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
 
-        callsmusic.pytgcalls.join_group_call(chat_id, file_path)
+        await callsmusic.pytgcalls.join_group_call(
+                chat_id, 
+                InputStream(
+                    InputAudioStream(
+                        file_path,
+                    ),
+                ),
+                stream_type=StreamType().local_stream,
+            )
         await cb.message.delete()
         await b.send_photo(chat_id,
             photo="final.png",
