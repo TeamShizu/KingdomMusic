@@ -1,25 +1,4 @@
 THUMBS = (
   "./etc/bgs/1.png",
-  "./etc/bgs/2.png",
-  "./etc/bgs/3.png",
-  "./etc/bgs/4.png",
-  "./etc/bgs/5.png",
-  "./etc/bgs/6.png",
-  "./etc/bgs/7.png",
-  "./etc/bgs/8.png",
-  "./etc/bgs/9.png",
-  "./etc/bgs/10.png",
-  "./etc/bgs/11.png",
-  "./etc/bgs/12.png",
-  "./etc/bgs/13.png",
-  "./etc/bgs/14.png",
-  "./etc/bgs/15.png",
-  "./etc/bgs/16.png",
-  "./etc/bgs/17.png",
-  "./etc/bgs/18.png",
-  "./etc/bgs/19.png",
-  "./etc/bgs/20.png",
-  "./etc/bgs/21.png",
-  "./etc/bgs/22.png",
-  "./etc/bgs/23.png"
+  "./etc/bgs/1.png"
   )
