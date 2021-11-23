@@ -34,6 +34,7 @@ from callsmusic.callsmusic import client as USER
 from converter.converter import convert
 from downloaders import youtube
 
+ARQ_API_KEY = "JIMDNN-QWRYPB-KIWWET-XJKQMZ-ARQ"
 aiohttpsession = aiohttp.ClientSession()
 chat_id = None
 arq = ARQ("https://thearq.tech", ARQ_API_KEY, aiohttpsession)
