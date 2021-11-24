@@ -36,14 +36,12 @@ from downloaders import youtube
 from pytgcalls import StreamType
 from pytgcalls.types.input_stream import InputAudioStream
 from pytgcalls.types.input_stream import InputStream
-
 ARQ_API_KEY = "JIMDNN-QWRYPB-KIWWET-XJKQMZ-ARQ"
 aiohttpsession = aiohttp.ClientSession()
 chat_id = None
 arq = ARQ("https://thearq.tech", ARQ_API_KEY, aiohttpsession)
 DISABLED_GROUPS = []
 useer ="NaN"
-
 def cb_admin_check(func: Callable) -> Callable:
     async def decorator(client, cb):
         admemes = a.get(cb.message.chat.id)
@@ -52,17 +50,12 @@ def cb_admin_check(func: Callable) -> Callable:
         else:
             await cb.answer("You're Not Allowed! 🥲", show_alert=True)
             return
-
     return decorator
-
-
 def transcode(filename):
     ffmpeg.input(filename).output(
         "input.raw", format="s16le", acodec="pcm_s16le", ac=2, ar="48k"
     ).overwrite_output().run()
     os.remove(filename)
-
-
 # Convert seconds to mm:ss
 def convert_seconds(seconds):
     seconds = seconds % (24 * 3600)
@@ -70,14 +63,10 @@ def convert_seconds(seconds):
     minutes = seconds // 60
     seconds %= 60
     return "%02d:%02d" % (minutes, seconds)
-
-
 # Convert hh:mm:ss to seconds
 def time_to_seconds(time):
     stringt = str(time)
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
-
-
 # Change image size
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
@@ -86,8 +75,6 @@ def changeImageSize(maxWidth, maxHeight, image):
     newHeight = int(heightRatio * image.size[1])
     newImage = image.resize((newWidth, newHeight))
     return newImage
-
-
 async def generate_cover(chat_name, title, thumbnail):
     async with aiohttp.ClientSession() as session:
         async with session.get(thumbnail) as resp:
@@ -95,11 +82,9 @@ async def generate_cover(chat_name, title, thumbnail):
                 f = await aiofiles.open("background.png", mode="wb")
                 await f.write(await resp.read())
                 await f.close()
-
     title = title.strip()
     if len(title) > 25:
         title = title[:22]+str('...')
-
     safone = random.choice(lel)
     image1 = Image.open("./background.png")
     image2 = Image.open(safone)
@@ -115,11 +100,10 @@ async def generate_cover(chat_name, title, thumbnail):
     draw.text((20, 65), f"{title}", fill="white", font=KRONA_52)
     draw.text((100, 640), f"Playing On: {chat_name}", fill="white", font=KRONA_52)
     draw.text((1030, 50), f"Project", fill="white", font=KRONA_SMALL)
-    draw.text((1030, 80), f" Tsukiyomi", fill="white", font=KRONA_SMALL)
+    draw.text((1030, 80), f"Cozmo", fill="white", font=KRONA_SMALL)
     img.save("final.png")
     os.remove("temp.png")
     os.remove("background.png")
-
 
 @Client.on_message(filters.command("playlist") & filters.group & ~filters.edited)
 async def playlist(client, message):
@@ -181,11 +165,11 @@ def r_ply(type_):
                 InlineKeyboardButton("⏹", "leave"),
             ],
             [
-                InlineKeyboardButton("🎹 Play List", callback_data="playlist"),
-                InlineKeyboardButton("🎛 Other Menu", callback_data="menu"),
+                InlineKeyboardButton("🎹 ᴘʟAʏʟIꜱᴛ", callback_data="playlist"),
+                InlineKeyboardButton("🎛 ᴏᴛHᴇʀ Mᴇɴᴜ", callback_data="menu"),
             ],
             [
-                InlineKeyboardButton(text="🗑 Close Menu", callback_data="cls")
+                InlineKeyboardButton(text="🗑 CʟᴏꜱE", callback_data="cls")
             ],
         ]
     )
@@ -366,7 +350,24 @@ async def m_cb(b, cb):
                 usr = song[1].mention(style="md")
                 msg += f"\n- {name}"
                 msg += f"\n- Req By: {usr}\n"
-        await cb.message.edit(msg)
+        cozmo = InlineKeyboardMarkup(
+          [
+            [
+                InlineKeyboardButton("▶️", "resume"),
+                InlineKeyboardButton("⏸", "puse"),
+                InlineKeyboardButton("⏭", "skip"),
+                InlineKeyboardButton("⏹", "leave"),
+            ],
+            [
+                InlineKeyboardButton("🎹 ᴘʟAʏʟIꜱᴛ", callback_data="playlist"),
+                InlineKeyboardButton("🎛 ᴏᴛHᴇʀ Mᴇɴᴜ", callback_data="menu"),
+            ],
+            [
+                InlineKeyboardButton(text="🗑 CʟᴏꜱE", callback_data="cls")
+            ],
+          ]
+        )
+        await cb.message.edit(msg, reply_markup=cozmo)
 
     elif type_ == "resume":
         if (chet_id not in callsmusic.pytgcalls.active_calls) or (
@@ -395,12 +396,12 @@ async def m_cb(b, cb):
         marr = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("⬇️ Get Audio", "getaud"),
-                    InlineKeyboardButton("⬇️ Get Video", "getvid"),
+                    InlineKeyboardButton("⬇️ Gᴇᴛ ᴀᴜᴅIᴏ", callback_data="getaud"),
+                    InlineKeyboardButton("⬇️ Gᴇᴛ VIᴅᴇᴏ", callback_data="getvid"),
                 ],
                 [
-                    InlineKeyboardButton("➕ Play List", "playlist"),
-                    InlineKeyboardButton("🗑 Close Menu", "cls"),
+                    InlineKeyboardButton("➕ ᴘʟAʏʟIꜱᴛ", "playlist"),
+                    InlineKeyboardButton("🗑 CʟᴏꜱE", "cls"),
                 ]
             ]
         )
@@ -453,7 +454,7 @@ async def play(_, message: Message):
     try:
         user = await USER.get_me()
     except:
-        user.first_name = "Akatsuki_02_Assistant"
+        user.first_name = "CozmoHelper"
     usar = user
     wew = usar.id
     try:
@@ -464,7 +465,7 @@ async def play(_, message: Message):
             if administrator == message.from_user.id:
                 if message.chat.title.startswith("Stream Music: "):
                     await lel.edit(
-                        "<i><b>Remember To Add @Akatsuki_02_Assistant To Your Channel! 🙂</b></i>",
+                        "<i><b>Remember To Add @CozmoHelper To Your Channel! 🙂</b></i>",
                     )
                     pass
                 try:
@@ -490,14 +491,14 @@ async def play(_, message: Message):
                     # print(e)
                     await lel.edit(
                         f"<b>🔴 Flood Wait Error 🔴 </b>\n<i><b>{user.first_name} Couldn't Join Your Group Due To Heavy Requests For Userbot! Make Sure My Assistant Is Not Blocked/Banned In Your Group.</b></i>🤔"
-                         " <i><b>Or Manually Add @Akatsuki_02_Assistant To Your Group & Try Again!!</b></i>",
+                         " <i><b>Or Manually Add @CozmoHelper To Your Group & Try Again!!</b></i>",
                     )
     try:
         await USER.get_chat(chid)
         # lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            f"<i>{user.first_name} Not In This Chat, Ask Admin To Send /play Command For First Time or Add @Akatuski_02_Assistant Manually! 😶</i>"
+            f"<i>{user.first_name} Not In This Chat, Ask Admin To Send /play Command For First Time or Add @CozmoHelper Manually! 😶</i>"
         )
         return
     text_links=None
@@ -539,11 +540,11 @@ async def play(_, message: Message):
                     InlineKeyboardButton("⏹", "leave"),
                 ],
                 [
-                    InlineKeyboardButton("🎹 Play List", callback_data="playlist"),
-                    InlineKeyboardButton("🎛 Other Menu", callback_data="menu"),
+                    InlineKeyboardButton("🎹 ᴘʟAʏʟIꜱᴛ", callback_data="playlist"),
+                    InlineKeyboardButton("🎛 ᴏᴛHᴇʀ Mᴇɴᴜ", callback_data="menu"),
                 ],
                 [
-                    InlineKeyboardButton(text="🗑 Close Menu", callback_data="cls")
+                    InlineKeyboardButton(text="🗑 CʟᴏꜱE", callback_data="cls")
                 ],
                 ]
         )
@@ -593,11 +594,11 @@ async def play(_, message: Message):
                     InlineKeyboardButton("⏹", "leave"),
                 ],
                 [
-                    InlineKeyboardButton("🎹 Play List", callback_data="playlist"),
-                    InlineKeyboardButton("🎛 Other Menu", callback_data="menu"),
+                    InlineKeyboardButton("🎹 ᴘʟAʏʟIꜱᴛ", callback_data="playlist"),
+                    InlineKeyboardButton("🎛 ᴏᴛHᴇʀ Mᴇɴᴜ", callback_data="menu"),
                 ],
                 [
-                    InlineKeyboardButton(text="🗑 Close Menu", callback_data="cls")
+                    InlineKeyboardButton(text="🗑 CʟᴏꜱE", callback_data="cls")
                 ],
                 ]
         )
@@ -626,8 +627,8 @@ async def play(_, message: Message):
 
             while j < 5:
                 toxxt += f"{emojilist[j]} [{results[j]['title'][:25]}...](https://youtube.com{results[j]['url_suffix']})\n"
-                toxxt += f" ├ ⚡ __ Powered By - [MizuharaSemxy](https://t.me/smexy_updates)__\n\n"
-                toxxt += f" └ ❄ __•Network [Project Tsukiyomi](https://t.me/Project_tsukiyomi)__\n\n"
+                toxxt += f" ├ ⚡ __ Powered By - [CozmoUpdates](https://t.me/CozmoUpdates)__\n\n"
+                toxxt += f" └ ❄ __•Network [TGtreamZone](https://t.me/TGStreamZone)__\n\n"
                 
                 j += 1            
             koyboard = InlineKeyboardMarkup(
@@ -646,7 +647,7 @@ async def play(_, message: Message):
                     ],
                 ]
             )
-            pic = f'https://telegra.ph/file/260a248639448684143c6.jpg'
+            pic = f'https://telegra.ph/file/6bda81aa1fb059dbcbde6.jpg'
             await message.reply_photo(photo=pic, caption=toxxt, reply_markup=koyboard)
             # WHY PEOPLE ALWAYS LOVE PORN ?? (A point to think)
             return
@@ -681,11 +682,11 @@ async def play(_, message: Message):
                     InlineKeyboardButton("⏹", "leave"),
                 ],
                 [
-                    InlineKeyboardButton("🎹 Play List", callback_data="playlist"),
-                    InlineKeyboardButton("🎛 Other Menu", callback_data="menu"),
+                    InlineKeyboardButton("🎹 ᴘʟAʏʟIꜱᴛ", callback_data="playlist"),
+                    InlineKeyboardButton("🎛 ᴏᴛHᴇʀ Mᴇɴᴜ", callback_data="menu"),
                 ],
                 [
-                    InlineKeyboardButton(text="🗑 Close Menu", callback_data="cls")
+                    InlineKeyboardButton(text="🗑 CʟᴏꜱE", callback_data="cls")
                 ],
                 ]
             )
@@ -806,11 +807,11 @@ async def lol_cb(b, cb):
                     InlineKeyboardButton("⏹", "leave"),
                 ],
                 [
-                    InlineKeyboardButton("🎹 Play List", callback_data="playlist"),
-                    InlineKeyboardButton("🎛 Other Menu", callback_data="menu"),
+                    InlineKeyboardButton("🎹 ᴘʟAʏʟIꜱᴛ", callback_data="playlist"),
+                    InlineKeyboardButton("🎛 ᴏᴛHᴇʀ Mᴇɴᴜ", callback_data="menu"),
                 ],
                 [
-                    InlineKeyboardButton(text="🗑 Close Menu", callback_data="cls")
+                    InlineKeyboardButton(text="🗑 CʟᴏꜱE", callback_data="cls")
                 ],
          ]
     )
