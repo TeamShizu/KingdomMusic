@@ -50,7 +50,11 @@
 
 ## Commands 🛠
 
-- `/play <song name>` - play song you requested
+- `/cplay <song name>` - play song you requested in channels
+- `/cstream <song name>` - play music stream you requested in channels
+- `/play <song name>` - play song you requested in groups
+- `/vplay <song name>` - play song you requested with video in groups
+- `/vstream <song name>` - play video stream you requested in groups
 - `/playlist` - Show now playing list
 - `/song <song name>` - download songs you want quickly
 - `/search <query>` - search videos on youtube with details
