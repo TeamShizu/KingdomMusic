@@ -57,7 +57,9 @@ async def start_private(client: Client, message: Message):
 
 💡 **Find out all the Bot's commands and how they work by clicking on the » 📚 Commands button!**
 
-🔖 **To know how to use this bot, please click on the » ❓ Basic Guide button!**""",
+🔖 **To know how to use this bot, please click on the » ❓ Basic Guide button!**
+
+   **If there any problem repot us ☛ @TGStreamZone**""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -69,7 +71,7 @@ async def start_private(client: Client, message: Message):
                 [InlineKeyboardButton("❓ Basic Guide", callback_data="cbhowtouse")],
                 [
                     InlineKeyboardButton("📚 Commands", callback_data="cbcmds"),
-                    InlineKeyboardButton("❤️ Donate", url=f"https://t.me/{OWNER_NAME}"),
+                    InlineKeyboardButton("☛ Updates Here", url="https://t.me/kingdom_family_support"),
                 ],
                 [
                     InlineKeyboardButton(
@@ -81,13 +83,14 @@ async def start_private(client: Client, message: Message):
                 ],
                 [
                     InlineKeyboardButton(
-                        "☛ Support us ☚", url="https://t.me/kingdom_family_support"
+                        "🌐 Source Code", url="https://github.com/TeamShizu/KingdomMusic"
                     )
                 ],
             ]
         ),
         disable_web_page_preview=True,
     )
+
 
 
 @Client.on_message(
