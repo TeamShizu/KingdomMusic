@@ -1,6 +1,6 @@
-<p align="center"><a href="https://t.me/TeleStream_herobot"><img src=""></a></p>
+<p align="center"><a href="https://t.me/TeleStream_herobot"><img src="https://github.com/TeamShizu/KingdomMusic/etc/kingdom.jpg"></a></p>
 <p align="center">
-    <br><b>Veez Music is a telegram bot project that's allow you to play music on telegram voice chat group</b><br>
+    <br><b>Kingdom Music is an advance telegram bot project that's allow you to play music and videos on telegram voice chat group</b><br>
 </p>
 <p align="center">
     <a href="https://www.python.org/" alt="made-with-python"> <img src="https://img.shields.io/badge/Made%20with-Python-black.svg?style=flat-square&logo=python&logoColor=blue&color=red" /></a>
