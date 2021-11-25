@@ -1,4 +1,4 @@
-<p align="center"><a href="https://t.me/TeleStream_herobot"><img src="https://github.com/TeamShizu/KingdomMusic/etc/kingdom.jpg"></a></p>
+<p align="center"><a href="https://t.me/TeleStream_herobot"><img src="https://github.com/TeamShizu/KingdomMusic/raw/main/etc/kingdom.jpg"></a></p>
 <p align="center">
     <br><b>Kingdom Music is an advance telegram bot project that's allow you to play music and videos on telegram voice chat group</b><br>
 </p>
