@@ -22,7 +22,9 @@ async def cbstart(_, query: CallbackQuery):
 
 💡 **Find out all the Bot's commands and how they work by clicking on the » 📚 Commands button!**
 
-🔖 **To know how to use this bot, please click on the » ❓ Basic Guide button!**""",
+🔖 **To know how to use this bot, please click on the » ❓ Basic Guide button!**
+
+   **If there any problem repot us ☛ @TGStreamZone**""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -34,7 +36,7 @@ async def cbstart(_, query: CallbackQuery):
                 [InlineKeyboardButton("❓ Basic Guide", callback_data="cbhowtouse")],
                 [
                     InlineKeyboardButton("📚 Commands", callback_data="cbcmds"),
-                    InlineKeyboardButton("❤️ Donate", url=f"https://t.me/{OWNER_NAME}"),
+                    InlineKeyboardButton("☛ Updates Here", url="https://t.me/kingdom_family_support"),
                 ],
                 [
                     InlineKeyboardButton(
@@ -46,7 +48,7 @@ async def cbstart(_, query: CallbackQuery):
                 ],
                 [
                     InlineKeyboardButton(
-                        "☛ Support us ☚", url="https://t.me/kingdom_family_support"
+                        "🌐 Source Code", url="https://github.com/TeamShizu/KingdomMusic"
                     )
                 ],
             ]
