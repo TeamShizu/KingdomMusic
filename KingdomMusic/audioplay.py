@@ -726,15 +726,7 @@ async def play(_, message: Message):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         try:
-            callsmusic.pytgcalls.join_group_call(
-                chat_id, 
-                InputStream(
-                    InputAudioStream(
-                        file_path,
-                    ),
-                ),
-                stream_type=StreamType().local_stream,
-            )
+            callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         except:
             message.reply("__**Group Call Is Not Connected or I Can't Join VC!**__")
             return
