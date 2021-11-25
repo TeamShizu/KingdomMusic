@@ -3,8 +3,7 @@
     <br><b>Kingdom Music is an advance telegram bot project that's allow you to play music and videos on telegram voice chat group</b><br>
 </p>
 
-<h1> Demo Bot </h1>
-       <a href="https://t.me/TeleStream_herobot"> TeleStream_herobot</a> <br><br>
+<h1> Demo Bot <a href="https://t.me/TeleStream_herobot"> TeleStream_herobot</a> </h1><br><br>
        
 <p align="center">
     <a href="https://www.python.org/" alt="made-with-python"> <img src="https://img.shields.io/badge/Made%20with-Python-black.svg?style=flat-square&logo=python&logoColor=blue&color=red" /></a>
@@ -28,7 +27,7 @@
 
 ### 🧪 Get `SESSION_NAME` from below:
 
-[![GenerateString](https://img.shields.io/badge/repl.it-generateString-yellowgreen)](https://replit.com/@TeamShizu/ShizuMusic#main.py) ``Pyrogram``
+[![GenerateString](https://img.shields.io/badge/repl.it-generateString-yellowgreen)](https://replit.com/@TeamShizuX/Session-String-Generator#main.py) ``Pyrogram``
 
 ### 🎖 History
 
