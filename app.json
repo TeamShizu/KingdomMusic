@@ -1,13 +1,13 @@
 {
-    "name": "Veez Music Bot",
-    "logo": "https://telegra.ph/file/9dd9b20abcda2d7bb6725.png",
-    "description": "veez music allow you to stream music trought the telegram voice chat feature.",
+    "name": "Kingdom Player Bot",
+    "logo": "https://github.com/TeamShizu/KingdomMusic/raw/main/etc/kingdom.jpg",
+    "description": "Kingdom Music player is an advanced telegram bot for play music and video in your voice chat.",
     "keywords": ["music", "voice chat", "telegram"],
-    "repository": "https://github.com/levina-lab/veezmusic",
+    "repository": "https://github.com/TeamShizu/KingdomMusic",
     "stack": "container",
     "env": {
         "SESSION_NAME": {
-            "description": "fill with the pyrogram session string",
+            "description": "fill with the pyrogram session string https://replit.com/@TeamShizuX/Session-String-Generator#main.py",
             "required": true
         },
         "BOT_TOKEN": {
@@ -37,12 +37,12 @@
         "BOT_USERNAME": {
             "description": "fill with your bot username without @",
             "required": true,
-            "value": "veezmusicbot"
+            "value": "TheCozmoBot"
         },
         "ASSISTANT_NAME": {
             "description": "fill with the assistant username without @",
             "required": true,
-            "value": "veezasisstant"
+            "value": "CozmoHelper"
         },
         "BG_IMAGE": {
             "description": "fill with your costum background image link",
@@ -52,7 +52,7 @@
         "OWNER_NAME": {
             "description": "fill with your telegram username without @",
             "required": false,
-            "value": "dlwrml"
+            "value": "KingKnight_RG"
         },
         "ALIVE_NAME": {
             "description": "fill with the nickname of your telegram account",
@@ -74,17 +74,17 @@
         "DURATION_LIMIT": {
             "description": "max duration for music to download (in minutes, default is 40).",
             "required": true,
-            "value": "40"
+            "value": "400"
         },
         "UPDATES_CHANNEL": {
             "description": "if you have channel, fill the channel username here without @",
             "required": false,
-            "value": "levinachannel"
+            "value": "CozmoSupport_Official"
         },
         "GROUP_SUPPORT": {
             "description": "if you have group, fill the group username here without @",
             "required": false,
-            "value": "VeezSupportGroup"
+            "value": "CozmoUpdates"
         }
     },
     "buildpacks": [
