@@ -91,7 +91,7 @@
 - `/blocklist` - show the list of all people who's blocked for using your bot
 
 ## 🔎 Inline Search Support
-- just type the bot username in any chat, example: "`@VeezMusicBot Faded Alan Walker`", then bot will give you a results of the query you search in inline mode.
+- just type the bot username in any chat, example: "`@TeleStream_herobot Faded Alan Walker`", then bot will give you a results of the query you search in inline mode.
 
 ## Heroku Deployment <img src="./etc/Kenpurple.gif" width="40px">
 The easy way to host this bot, deploy to Heroku, Change the app country to Europe (it will help to make the bot stable).
