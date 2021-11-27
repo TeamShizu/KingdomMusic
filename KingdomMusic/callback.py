@@ -48,7 +48,7 @@ async def cbstart(_, query: CallbackQuery):
                 ],
                 [
                     InlineKeyboardButton(
-                        "🌐 Source Code", url="https://github.com/TeamShizu/KingdomMusic"
+                        "🌐 Make your own bot", url="https://youtu.be/h-80yFy5zcU"
                     )
                 ],
             ]
