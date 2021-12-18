@@ -1,4 +1,4 @@
-git+https://github.com/pyrogram/pyrogram@master
+pyrogram==1.2.20
 tgcrypto
 youtube-search-python==1.4.9
 youtube-search
