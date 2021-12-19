@@ -1,4 +1,4 @@
-pyrogram==1.2.20
+pyrogram
 tgcrypto
 youtube-search-python==1.4.9
 youtube-search
