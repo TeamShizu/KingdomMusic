@@ -116,6 +116,9 @@ The easy way to host this bot, deploy to Heroku, Change the app country to Europ
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TeamShizu/KingdomMusic)
 
+## Okteto Deployment 📌
+
+
 ## VPS Deployment 📡
 
 ```sh
