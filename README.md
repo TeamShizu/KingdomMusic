@@ -25,6 +25,15 @@
 - [MongoDB](https://cloud.mongodb.com/)
 - [2nd Telegram Account](https://telegram.org/blog/themes-accounts#multiple-accounts) (needed for userbot)
 
+
+### Video Tutorial:
+Complete guide on deploying clone on Heroku.
+
+
+
+☆ Video by [Mr RG YT](https://youtube.com/c/MrRGYT) ☆
+[![YouTube](https://img.shields.io/badge/YouTube-Video%20Tutorial-red?logo=youtube)](https://youtu.be/h-80yFy5zcU)
+
 ### 🧪 Get `SESSION_NAME` from below:
 
 [![GenerateString](https://img.shields.io/badge/repl.it-generateString-yellowgreen)](https://replit.com/@TeamShizuX/Session-String-Generator#main.py) ``Pyrogram``
