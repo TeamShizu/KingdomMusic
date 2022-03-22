@@ -29,6 +29,24 @@
 
 [![GenerateString](https://img.shields.io/badge/repl.it-generateString-yellowgreen)](https://replit.com/@TeamShizuX/Session-String-Generator#main.py) ``Pyrogram``
 
+### 📌 Vars For `Okteto.com`:
+    API_ID 
+    API_HASH
+    BOT_USERNAME
+    ASSISTANT_NAME
+    GROUP_SUPPORT 
+    UPDATES_CHANNEL
+    OWNER_NAME 
+    ALIVE_NAME
+    OWNER_ID
+    SUDO_USERS
+    DATABASE_URL 
+    LOG_CHANNEL
+    SESSION_NAME 
+    BOT_TOKEN 
+    BOT_NAME
+
+
 ### 🎖 History
 
 [![Mentioned in Awesome Python](https://awesome.re/mentioned-badge.svg)](https://github.com/TeamShizu/KingdomMusic)
